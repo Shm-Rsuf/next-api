@@ -1,3 +1,3 @@
 export default function handler(req, res) {
-  res.status(200).json({ message: "Next Api Route" });
+  res.status(200).json({ message: "Welcome to API" });
 }
