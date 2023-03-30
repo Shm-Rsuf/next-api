@@ -1,3 +1,4 @@
+import { useState } from "react";
 import useSWR from "swr";
 
 const fetcher = async (url) => {
@@ -7,6 +8,31 @@ const fetcher = async (url) => {
 };
 
 const Movies = () => {
+  const [movie, setMovie] = useState("");
+  const [rating, setRating] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const movieObj = {
+      id: Date.now(),
+      movieName: movie,
+      rating,
+    };
+
+    console.log(movieObj);
+
+    const res = await fetch("/api/movies", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(movieObj),
+    });
+    const json = res.json();
+    // console.log(data);
+  };
+
   const { data, error, isValidating } = useSWR("/api/movies", fetcher);
 
   const isLoading = !data && !error && isValidating;
@@ -17,6 +43,22 @@ const Movies = () => {
   return (
     <div>
       <h2>List of Movies</h2>
+      <h2>Submit New Movie</h2>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="write a movie name"
+          value={movie}
+          onChange={(e) => setMovie(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="write rating"
+          value={rating}
+          onChange={(e) => setRating(e.target.value)}
+        />
+        <button type="submit">Add Movie</button>
+      </form>
       {data?.map((movie) => (
         <div key={movie.id}>
           <h3>
