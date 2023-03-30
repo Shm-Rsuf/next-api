@@ -30,7 +30,6 @@ const Movies = () => {
       body: JSON.stringify(movieObj),
     });
     const json = res.json();
-    // console.log(data);
   };
 
   const { data, error, isValidating } = useSWR("/api/movies", fetcher);
