@@ -58,7 +58,7 @@ const Players = () => {
     //if response is true
     if (res.ok) {
       console.log("success", data);
-      // setPlayers([...players, data]);
+      setPlayers([...players, data]);
     }
   };
 
