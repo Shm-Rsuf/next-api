@@ -62,6 +62,16 @@ const Players = () => {
     }
   };
 
+  const handleDelete = async (id) => {
+    const res = await fetch(`/api/players/${id}`, {
+      method: "DELETE",
+    });
+    const data = await res.json();
+    console.log(data.message);
+    //update state
+    setPlayers(players.filter((player) => player.id !== +id));
+  };
+
   if (isLoading) {
     return (
       <div>
@@ -99,11 +109,11 @@ const Players = () => {
 
       <h1>List of Player</h1>
       {players?.map((player) => (
-        <PlayerItem key={player.id} player={player} />
-        // <div key={player.id}>
-        //   <h2>{player.name}</h2>
-        //   <h2>{player.country}</h2>
-        // </div>
+        <PlayerItem
+          key={player.id}
+          player={player}
+          handleDelete={handleDelete}
+        />
       ))}
     </div>
   );

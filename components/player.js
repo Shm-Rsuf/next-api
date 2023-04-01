@@ -1,8 +1,4 @@
-const PlayerItem = ({ player }) => {
-  const handleDelete = async (id) => {
-    const res = await fetch(`/api/players/${id}`);
-  };
-
+const PlayerItem = ({ player, handleDelete }) => {
   return (
     <div>
       <h3>
